@@ -1,0 +1,30 @@
+svg {
+  overflow: hidden;
+}
+
+svg path {
+  mix-blend-mode: multiply;
+  transform-origin: initial;
+  opacity: 1;
+}
+
+svg .dots {
+  cursor: pointer;
+  mix-blend-mode: multiply;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.timeline-chart-area {
+  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+  transition:  opacity 0.5s, -webkit-transform 0.5s;
+}
+
+.chart-peak-label {
+  -webkit-transition: opacity 0.5s;
+  transition:  opacity 0.5s;
+}
+
+.chart-peak-label text {
+  font-size: 10px;
+}

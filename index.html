@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+    <div class="main-chart"></div>
+    <div class="timeline-chart"></div>
+  </body>
+
+  <script>
+    function addDays(currentDate, dayNum) {
+      return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + dayNum, currentDate.getHours(), currentDate.getMinutes());
+    }
+
+    function buildDates (startDate, endDate) {
+      let currentDate = new Date(startDate);
+      const dates = [];
+      while(currentDate < endDate) {
+        const obj = {
+          time: currentDate.toISOString(),
+          id: null,
+          interest: 0,
+        };
+        dates.push(obj);
+        currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+      }
+      return dates;
+    }
+
+    function isDateSameDay(date1, date2) {
+      return (
+        (date1.getDate() === date2.getDate()) &&
+        (date1.getMonth() === date2.getMonth()) &&
+        (date1.getFullYear() === date2.getFullYear())
+      );
+    }
+
+    function generateColor(index) {
+      const colors = [
+        '#EF7EC4',
+        '#87FBFB',
+        '#86F69B',
+        '#F8C06B',
+        '#91A9F8',
+        '#46A7AC',
+        '#EA88D8',
+        '#DBF76B',
+        '#B195F8',
+        '#C2185B',
+        '#821D38',
+      ];
+      return colors[index % colors.length];
+    }
+
+    const overallData = [
+      { time: '2019-01-01T00:00:00.108Z', id: '1', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-02T00:00:00.108Z', id: '1', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-03T00:00:00.108Z', id: '1', title: 'Jokowi', interest: 0.1 },
+      { time: '2019-01-04T00:00:00.108Z', id: '1', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-01-05T00:00:00.108Z', id: '1', title: 'Jokowi', interest: 0 },
+
+      { time: '2019-01-02T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-03T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0.3 },
+      { time: '2019-01-04T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-05T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0.5 },
+      { time: '2019-01-06T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0.15 },
+      { time: '2019-01-07T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-01-08T00:00:00.108Z', id: '2', title: 'Jokowi', interest: 0 },
+
+      { time: '2019-01-13T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-14T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.6 },
+      { time: '2019-01-15T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.51 },
+      { time: '2019-01-16T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-17T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.43 },
+      { time: '2019-01-18T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-01-19T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.73 },
+      { time: '2019-01-20T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-01-21T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-22T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.15 },
+      { time: '2019-01-23T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.35 },
+      { time: '2019-01-24T00:00:00.108Z', id: '3', title: 'Jokowi', interest: 0.4 },
+
+      { time: '2019-01-17T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-18T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.5 },
+      { time: '2019-01-19T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-20T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-01-21T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.7 },
+      { time: '2019-01-22T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-23T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.4 },
+      { time: '2019-01-24T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.5 },
+      { time: '2019-01-25T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.56 },
+      { time: '2019-01-26T00:00:00.108Z', id: '4', title: 'Jokowi', interest: 0.2 },
+
+      { time: '2019-01-20T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0 },
+      { time: '2019-01-21T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.23 },
+      { time: '2019-01-22T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.23 },
+      { time: '2019-01-23T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.45 },
+      { time: '2019-01-24T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.85 },
+      { time: '2019-01-25T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.22 },
+      { time: '2019-01-26T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.56 },
+      { time: '2019-01-27T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-01-28T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.3 },
+      { time: '2019-01-29T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0.35 },
+      { time: '2019-01-30T00:00:00.108Z', id: '5', title: 'Jokowi', interest: 0 },
+
+      { time: '2019-02-01T00:00:00.108Z', id: '6', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-02T00:00:00.108Z', id: '6', title: 'Jokowi', interest: 0.54 },
+      { time: '2019-02-03T00:00:00.108Z', id: '6', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-02-04T00:00:00.108Z', id: '6', title: 'Jokowi', interest: 0.4 },
+
+      { time: '2019-02-04T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.56 },
+      { time: '2019-02-05T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.23 },
+      { time: '2019-02-06T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.5 },
+      { time: '2019-02-07T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.6 },
+      { time: '2019-02-08T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.45 },
+      { time: '2019-02-09T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-10T00:00:00.108Z', id: '7', title: 'Jokowi', interest: 0.24 },
+
+      { time: '2019-02-09T00:00:00.108Z', id: '8', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-10T00:00:00.108Z', id: '8', title: 'Jokowi', interest: 0.5 },
+      { time: '2019-02-11T00:00:00.108Z', id: '8', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-12T00:00:00.108Z', id: '8', title: 'Jokowi', interest: 0.65 },
+
+      { time: '2019-02-11T00:00:00.108Z', id: '9', title: 'Jokowi', interest: 0.13 },
+      { time: '2019-02-12T00:00:00.108Z', id: '9', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-02-13T00:00:00.108Z', id: '9', title: 'Jokowi', interest: 0.7 },
+      { time: '2019-02-14T00:00:00.108Z', id: '9', title: 'Jokowi', interest: 0.54 },
+
+      { time: '2019-02-14T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-15T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.15 },
+      { time: '2019-02-16T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.25 },
+      { time: '2019-02-17T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.7 },
+      { time: '2019-02-18T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.2 },
+      { time: '2019-02-19T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.34 },
+    ];
+
+    const articles = {
+      '1': 'Comics',
+      '2': 'Culture',
+      '3': 'Fiction',
+      '4': 'Music',
+      '5': 'Poetry',
+      '6': 'Podcast',
+      '7': 'Writing',
+      '8': 'News & Entertainment',
+      '9': 'Business',
+      '10': 'Design',
+    };
+
+    const MAIN_CHART_OPACITY_OFF = '0.15';
+    const MAIN_CHART_OPACITY_ON = '1';
+
+    const PEAK_LABEL_OPACITY_OFF = '0';
+    const PEAK_LABEL_OPACITY_ON = '1';
+
+    const DOT_OPACITY_OFF = '0';
+    const DOT_OPACITY_ON = '1';
+
+    const dateOffset = 0;
+    const grouped = _.groupBy(overallData, 'id');
+    let chunks = Object.keys(grouped).map(item => ({
+      key: item,
+      title: articles[item],
+      items: grouped[item],
+    }));
+
+    const minDate = d3.min(overallData, function(d) { return new Date(d.time) });
+    const maxDate = d3.max(overallData, function(d) { return new Date(d.time) });
+
+    const svgHeight = 360;
+    const svgWidth = 600;
+    const padding = 32;
+    const days = 14;
+
+    const miniHeight = 60;
+    const peakLabelLineHeight = 25;
+
+    this.timelineChart = {};
+    this.timelineChart.initMainChart = function() {
+      var self = this;
+      this.selectedMinDate = addDays(minDate, 10);
+      this.selectedMaxDate = addDays(this.selectedMinDate, days);
+
+      this.drawMainChart();
+      this.drawMainXAxis();
+      this.drawMainYAxis();
+      this.drawMainPeakLabel();
+      this.drawDots();
+    }
+
+    this.timelineChart.filterDataRelativeToPeakByRange = function(datas, shift) {
+      var self = this;
+      const output = datas.filter(function(chunk) {
+        const sortedItems = chunk.items.slice().sort(function(a, b) { return a.interest - b.interest });
+        const peakObj = sortedItems[sortedItems.length - 1];
+        const peakDate = new Date(peakObj.time);
+        return addDays(peakDate, shift) >= self.selectedMinDate && addDays(peakDate, -shift) <= self.selectedMaxDate;
+      });
+
+      return output.slice(0);
+    }
+
+    this.timelineChart.filterDataByRange = function(datas) {
+      var self = this;
+      const output = datas.filter(function(item) {
+        const date = new Date(item.time);
+        return date >= self.selectedMinDate && date <= self.selectedMaxDate && item.interest > 0;
+      });
+
+      return output.slice(0);
+    }
+
+    this.timelineChart.drawMainChart = function() {
+      var self = this;
+      this.mainX = d3.scaleTime()
+        .range([0, svgWidth])
+        .domain([this.selectedMinDate, this.selectedMaxDate]);
+      this.mainY = d3.scaleLinear()
+        .domain([0, 1])
+        .range([svgHeight, 0]);
+
+      this.timelineX = d3.scaleTime()
+        .range([0, svgWidth + padding - 1])
+        .domain([minDate, maxDate])
+
+      this.timelineY = d3.scaleLinear()
+        .domain([0, 1])
+        .range([`${miniHeight}`, 0]);
+
+      this.mainChartSvg = d3
+        .select('.main-chart')
+        .append('svg')
+        .attr('width', svgWidth + padding + 2)
+        .attr('height', svgHeight + (padding * 2));
+    
+      this.mainChartGroup = this.mainChartSvg
+        .append('g')
+        .attr('transform', `translate(0, ${padding / 2})`)
+        .attr('class', '.main-chart-area');
+
+      this.mainChartSelection = this.mainChartGroup
+        .append('g')
+        .attr('transform', `translate(${padding + 2}, 0)`)
+        .selectAll('path')
+        .data(chunks)
+        .enter();
+
+      this.mainChartArea = d3.area()
+        .x(function(d, i) { return self.mainX(new Date(d.time)); })
+        .y0(self.mainY(0))
+        .y1(function(d, i) { return self.mainY(d.interest) })
+        .defined(function(d) {
+          return addDays(new Date(d.time), 1) > self.selectedMinDate && addDays(new Date(d.time), -1) < self.selectedMaxDate;
+        });
+
+      this.mainChartPath = this.mainChartSelection
+        .append('path')
+        .attr('class', 'timeline-chart-area')
+        .attr('fill', function(d, i) {
+          return generateColor(i);
+        })
+        .datum(function(d) { return d; })
+        .attr("d", function(d) {
+          return self.mainChartArea(d.items);
+        })
+        .on('mouseover', function (d, i) {
+          self.mouseOverArea(d.key, i);
+        })
+        .on('mouseout', function (d, i) {
+          self.mouseOutArea();
+        });
+    }
+
+    this.timelineChart.drawMainPeakLabel = function() {
+      var self = this;
+      
+      this.peakLabelGroup = this.mainChartSvg
+        .append('g')
+        .attr('class', 'chart-peak-label-group');
+
+      this.peakLabelSelection = this.peakLabelGroup
+        .selectAll('.chart-peak-label')
+        .data(this.filterDataRelativeToPeakByRange(chunks, 3))
+        .enter()
+        .append('g')
+        .attr('class', 'chart-peak-label');
+
+      this.peakLabelSelection
+        .attr('transform', function(d) {
+          const obj = d.items.slice().sort(function(a, b) { return a.interest - b.interest })[d.items.length - 1];
+          return `translate(${self.mainX(new Date(obj.time)) + padding + 2}, ${self.mainY(obj.interest) - (padding / 2)})`;
+        })
+        .append('rect')
+        .attr('width', 1)
+        .attr('height', peakLabelLineHeight)
+        .attr('fill', '#999')
+        .attr('shape-rendering', 'crispEdges');
+      
+      this.peakLabelSelection
+        .append('text')
+        .attr('y', '-15')
+        .attr('fill', '#3A3A3A')
+        .attr('text-anchor', 'start')
+        .attr('dominant-baseline', 'text-before-edge')
+        .text(function(d, i) {
+          return d.title;
+        })
+        .attr('transform', function(d) {
+          const w = this.getComputedTextLength();
+          return `translate(${-(w/2)}, 0)`
+        });
+    }
+
+    this.timelineChart.updatePeakLabels = function() {
+      var self = this;
+      this.peakLabelSelection = this.peakLabelGroup
+        .selectAll('.chart-peak-label')
+        .data(this.filterDataRelativeToPeakByRange(chunks, 3), function(d, i) {
+          return d.key + i + Math.random();
+        });
+
+      const currentPeakLabels = this.peakLabelSelection
+        .enter()
+        .append('g')
+        .attr('class', 'chart-peak-label');
+
+      currentPeakLabels
+        .append('rect')
+        .attr('width', 1)
+        .attr('height', peakLabelLineHeight)
+        .attr('fill', '#999')
+        .attr('shape-rendering', 'crispEdges');
+      
+      currentPeakLabels
+        .append('text')
+        .attr('y', '-15')
+        .attr('fill', '#3A3A3A')
+        .attr('text-anchor', 'start')
+        .attr('dominant-baseline', 'text-before-edge')
+        .text(function(d, i) {
+          return d.title;
+        })
+        .attr('transform', function(d) {
+          const w = this.getComputedTextLength();
+          return `translate(${-(w/2)}, 0)`
+        });
+      
+      currentPeakLabels
+        .merge(this.peakLabelSelection)
+        .attr('transform', function(d) {
+          const obj = d.items.slice().sort(function(a, b) { return a.interest - b.interest })[d.items.length - 1];
+          return `translate(${self.mainX(new Date(obj.time)) + padding + 2}, ${self.mainY(obj.interest) - (padding / 2)})`;
+        });
+
+      this.peakLabelSelection
+        .exit()
+        .remove();
+    }
+
+    this.timelineChart.drawDots = function() {
+      var self = this;
+
+      this.dotsGroup = this.mainChartSvg.append('g').attr('class', 'dots-group');
+      this.dotsSelection = this.dotsGroup.selectAll('.dots')
+        .data(this.filterDataByRange(overallData))
+        .enter()
+        .append('circle')
+        .attr('class', 'dots');
+
+      this.dotsSelection
+        .attr('r', 5)
+        .attr('cx', function (d) {
+            return self.mainX(new Date(d.time)) + padding + 2;
+        })
+        .attr('cy', function (d) {
+            return self.mainY(d.interest) + (padding / 2);
+        })
+        .style('fill', function (d, i) {
+          const id = d.id;
+          return generateColor(parseInt(id, 10) - 1);
+        })
+        .style('opacity', DOT_OPACITY_OFF)
+        .on('mouseover', function (d) {
+          self.mouseOverDot(d.id);
+        })
+        .on('mouseout', function (d) {
+          self.mouseOutDot(d.id);
+        });
+    }
+
+    this.timelineChart.updateDots = function() {
+      var self = this;
+      this.dotsSelection = this.dotsGroup
+        .selectAll('.dots')
+        .data(this.filterDataByRange(overallData), function(d, i) {
+          return d.key + i + Math.random();
+        });
+
+      this.dotsSelection
+        .enter()
+        .append('circle')
+        .attr('class', 'dots')
+        .attr('r', 5)
+        .merge(this.dotsSelection)
+        .attr('cx', function (d) {
+            return self.mainX(new Date(d.time)) + padding + 2;
+        })
+        .attr('cy', function (d) {
+            return self.mainY(d.interest) + (padding / 2);
+        })
+        .style('fill', function (d, i) {
+          const id = d.id;
+          return generateColor(parseInt(id, 10) - 1);
+        })
+        .style('opacity', DOT_OPACITY_OFF)
+        .on('mouseover', function (d) {
+          self.mouseOverDot(d.id);
+        })
+        .on('mouseout', function (d) {
+          self.mouseOutDot(d.id);
+        });
+
+      this.dotsSelection
+        .exit()
+        .remove();
+
+    }
+
+    this.timelineChart.mouseOverArea = function(key) {
+      this.mainChartPath
+        .style('opacity', function(d) {
+          if (key === d.key) {
+            return MAIN_CHART_OPACITY_ON;
+          }
+          return MAIN_CHART_OPACITY_OFF;
+        });
+
+      this.peakLabelGroup
+        .selectAll('.chart-peak-label')
+        .style('opacity', function(d) {
+          if (key === d.key) {
+            return DOT_OPACITY_ON;
+          }
+          return DOT_OPACITY_OFF;
+        });
+
+      this.dotsGroup
+        .selectAll('.dots')
+        .style('opacity', function(d) {
+          if (key === d.id) {
+            return DOT_OPACITY_ON;
+          }
+          return DOT_OPACITY_OFF;
+        });
+    }
+
+    this.timelineChart.mouseOutArea = function(key) {
+      this.mainChartPath
+        .style('opacity', function(d) {
+          return MAIN_CHART_OPACITY_ON;
+        });
+
+      this.peakLabelGroup
+        .selectAll('.chart-peak-label')
+        .style('opacity', function(d) {
+          return DOT_OPACITY_ON;
+        });
+
+      this.dotsGroup
+        .selectAll('.dots')
+        .style('opacity', function(d) {
+          return DOT_OPACITY_OFF;
+        });
+    }
+
+    this.timelineChart.mouseOverDot = function(key) {
+      this.dotsGroup
+        .selectAll('.dots')
+        .style('opacity', function(d) {
+          if (key === d.id) {
+            return DOT_OPACITY_ON;
+          }
+          return DOT_OPACITY_OFF;
+        });
+
+      this.peakLabelGroup
+        .selectAll('.chart-peak-label')
+        .style('opacity', function(d) {
+          if (key === d.key) {
+            return DOT_OPACITY_ON;
+          }
+          return DOT_OPACITY_OFF;
+        });
+
+      this.mainChartPath
+        .style('opacity', function(d) {
+          if (key === d.key) {
+            return MAIN_CHART_OPACITY_ON;
+          }
+          return MAIN_CHART_OPACITY_OFF;
+        });
+    }
+
+    this.timelineChart.mouseOutDot = function(key) {
+      console.log(key);
+    }
+
+    this.timelineChart.drawMainXAxis = function() {
+      this.xAxisScale = d3.scaleLinear()
+        .domain([minDate, maxDate])
+        .range([0, svgWidth]);
+
+      this.xAxis = d3
+        .axisBottom(this.xAxisScale)
+        .tickSize(8, 0)
+        .ticks(d3.timeWeek)
+        .scale(this.mainX)
+        .tickFormat(d3.timeFormat('%B %d %Y'));
+
+      this.xAxisGroup = this.mainChartGroup
+        .append('g')
+        .attr('transform', `translate(${padding}, ${svgHeight})`)
+        .call(this.xAxis);
+    }
+
+    this.timelineChart.drawMainYAxis = function() {
+      this.yAxisScale = d3.scaleLinear()
+        .domain([1, 0])
+        .range([0, svgHeight])
+    
+      this.yAxis = d3
+        .axisLeft(this.yAxisScale)
+        .tickValues([0, 0.5, 1])
+        .tickFormat(d3.format(',.1r'));
+
+      this.yAxisGroup = this.mainChartGroup
+        .append('g')
+        .attr('transform', `translate(${padding}, 0)`)
+        .call(this.yAxis);
+    }
+
+    this.timelineChart.initTimeline = function() {
+      var self = this;
+      this.drawTimelineChart();
+      this.drawTimelineBrush();
+    }
+
+    this.timelineChart.updateBrushPosition = function() {
+      this.timelineBrushGroup.call(
+        this.timelineBrush.move,
+        [this.timelineX(this.selectedMinDate), this.timelineX(this.selectedMaxDate)],
+      );
+    }
+
+    this.timelineChart.brushed = function(_this) {
+      const selection = d3.event.selection;
+      const selectedDate = new Date(_this.timelineX.invert(selection[0]));
+      const selectedDateMax = new Date(_this.timelineX.invert(selection[1]));
+
+      this.timelineMinSelectionMask
+        .attr('width', selection[0]);
+      this.timelineMaxSelectionMask
+        .attr('x', selection[1])
+        .attr('width', (_this.timelineX.range()[1] - selection[1] > 0 ? _this.timelineX.range()[1] - selection[1] : 0) + padding);
+
+      this.timelineMinSelection.attr('x', selection[0]);
+      this.timelineMaxSelection.attr('x', selection[1] - 1);
+
+      // console.log(selectedDate);
+      if (d3.event.sourceEvent) {
+        this.updateMainChart(selectedDate);
+      }
+    }
+
+    this.timelineChart.updateMainChart = function(startDate) {
+      var self = this;
+      this.selectedMinDate = startDate;
+      this.selectedMaxDate = addDays(startDate, days);
+
+      this.mainX.domain([this.selectedMinDate, this.selectedMaxDate]);
+
+      this.mainChartArea.defined(function(d) {
+        return addDays(new Date(d.time), 1) >= self.selectedMinDate && addDays(new Date(d.time), -1) <= self.selectedMaxDate;
+      });
+
+      this.mainChartPath
+        .attr('d', function (d) {
+            return self.mainChartArea(d.items);
+        });
+
+      this.xAxisGroup.call(this.xAxis);
+      this.updatePeakLabels();
+      this.updateDots();
+    }
+
+    this.timelineChart.drawTimelineBrush = function() {
+      var self = this;
+
+      // TODO: Support click on area to focus
+      this.timelineBrush = d3.brushX()
+        .extent([[0, 0], [svgWidth + padding, miniHeight]])
+        .on('brush end', function () {
+          self.brushed(self); 
+        });
+
+      this.timelineBrushGroup = this.timelineSvg
+        .append('g')
+        .attr('class', 'timeline-brush')
+        .call(this.timelineBrush);
+
+      this.timelineBrushGroup.select('.selection')
+        .attr('fill-opacity', 0)
+        .attr('stroke', 'none');
+
+      this.timelineBrushGroup.selectAll('.handle').remove();
+      this.timelineBrushGroup.selectAll('.overlay').remove();
+
+      // Selected area's left line
+      this.timelineMinSelection = this.timelineBrushGroup
+        .append('rect')
+        .attr('class', 'timeline-chart-min-selection')
+        .attr('x', '0')
+        .attr('y', '0')
+        .attr('width', '1')
+        .attr('height', miniHeight)
+        .attr('fill', '#3A3A3A')
+        .attr('shape-rendering', 'crispEdges');
+
+      // Selected area's right line
+      this.timelineMaxSelection = this.timelineBrushGroup
+        .append('rect')
+        .attr('class', 'timeline-chart-max-selection')
+        .attr('x', `${this.timelineX.range()[1] - 1}`)
+        .attr('y', '0')
+        .attr('width', '1')
+        .attr('height', miniHeight)
+        .attr('fill', '#3A3A3A')
+        .attr('shape-rendering', 'crispEdges');
+
+      // Overlay for timeline's left side mask
+      this.timelineMinSelectionMask = this.timelineBrushGroup
+        .append('rect')
+        .attr('x', '0')
+        .attr('y', '0')
+        .attr('width', '0')
+        .attr('height', miniHeight)
+        .attr('fill', '#FFFFFF')
+        .attr('fill-opacity', '0.75')
+        .attr('shape-rendering', 'crispEdges');
+
+      // Overlay for timeline's right side mask
+      this.timelineMaxSelectionMask = this.timelineBrushGroup
+        .append('rect')
+        .attr('x', `${svgWidth + padding}`)
+        .attr('y', '0')
+        .attr('width', '0')
+        .attr('height', miniHeight)
+        .attr('fill', '#FFFFFF')
+        .attr('fill-opacity', '0.75')
+        .attr('shape-rendering', 'crispEdges');
+
+      self.updateBrushPosition();
+    }
+
+    this.timelineChart.drawTimelineChart = function() {
+      var self = this;
+
+      this.timelineSvg = d3
+        .select('.timeline-chart')
+        .append('svg')
+        .attr('width', svgWidth + padding)
+        .attr('height', miniHeight);
+
+      const bottomLine = this.timelineSvg
+        .append('line')
+        .attr('x1', '0')
+        .attr('y1', `${miniHeight - 1}`)
+        .attr('x2', `${svgWidth + padding}`)
+        .attr('y2', `${miniHeight - 1}`)
+        .attr('stroke', '#E7E7E7')
+        .attr('stroke-width', '1')
+        .attr('shape-rendering', 'crispEdges');
+      
+      const leftLine = this.timelineSvg
+        .append('line')
+        .attr('x1', '1')
+        .attr('y1', '0')
+        .attr('x2', '1')
+        .attr('y2', `${miniHeight}`)
+        .attr('stroke', '#E7E7E7')
+        .attr('stroke-width', '1')
+        .attr('shape-rendering', 'crispEdges');
+
+      const rightLine = this.timelineSvg
+        .append('line')
+        .attr('x1', `${svgWidth + padding - 1}`)
+        .attr('y1', '0')
+        .attr('x2', `${svgWidth + padding - 1}`)
+        .attr('y2', `${miniHeight}`)
+        .attr('stroke', '#E7E7E7')
+        .attr('stroke-width', '1')
+        .attr('shape-rendering', 'crispEdges');
+
+      this.timelineChartGroup = this.timelineSvg
+        .append('g')
+        .attr('class', 'timeline-chart-group');
+
+      this.timelineChartSelection = this.timelineChartGroup
+        .selectAll('path')
+        .data(chunks)
+        .enter();
+
+      this.timelineChartArea = d3.area()
+        .x(function(d, i) { return self.timelineX(new Date(d.time)); })
+        .y0(self.timelineY(0))
+        .y1(function(d, i) { return self.timelineY(d.interest) });
+
+      this.timelineChartPath = this.timelineChartSelection
+      .append('path')
+      .attr('fill', function(d, i) {
+        return generateColor(i);
+      })
+      .datum(function(d) { return d; })
+      .attr("d", function(d) {
+        return self.timelineChartArea(d.items);
+      })
+    }
+    this.timelineChart.initMainChart();
+    this.timelineChart.initTimeline();
+  </script>
+</html>

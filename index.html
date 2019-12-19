@@ -4,43 +4,247 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="">
+    <link href="https://fonts.googleapis.com/css?family=Arimo&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="./index.css">
   </head>
   <body>
-    <div class="main-chart"></div>
-    <div class="timeline-chart"></div>
+    <main class="main-container">
+      <div class="main-wrapper">
+        <div class="chart-area">
+          <div class="main-chart"></div>
+          <div class="timeline-chart"></div>
+        </div>
+        <div class="story-area">
+          <div class="story-container">
+            <div class="story story--full" data-aos="flip-left">
+              <h4>
+                FLUTTER
+              </h4>
+              <h3>
+                Top 8 Announcements from Flutter Interact
+              </h3>
+              <p>
+                So the Flutter Interact 19 is ended with amazing cool stuffs and announcements therefore I bring you the Top 8.
+              </p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>WORK</h4>
+              <h3>
+                Master the JavaScript Interview: What is a Promise?
+              </h3>
+              <p>“Master the JavaScript Interview” is a series of posts designed to prepare candidates for common questions they are likely to encounter…</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--full" data-aos="flip-right">
+                <div class="story-cover">
+                  <div style="background-image: url('https://via.placeholder.com/300');"></div>
+                </div>
+                <h4>ENVIRONMENT</h4>
+                <h3>
+                    The Asteroid No One Is Talking About
+                </h3>
+                <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--full" data-aos="flip-right">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="zoom-in-right">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+            <div class="story story--half story--right" data-aos="zoom-in-left">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--full" data-aos="flip-right">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <h4>Based on your reading history</h4>
+              <h3>
+                How Japanese Manufacturing Influenced Agile: A brief Explanation on Scrum vs Kanban
+              </h3>
+              <p>When we talk about products, we think of them in two different ways, either as physical products that are manufactured or software…</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--half story--left" data-aos="fade-right">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+            <div class="story story--half story--right" data-aos="fade-left">
+              <div class="story-cover">
+                <div style="background-image: url('https://via.placeholder.com/300');"></div>
+              </div>
+              <h4>ENVIRONMENT</h4>
+              <h3>
+                  The Asteroid No One Is Talking About
+              </h3>
+              <p>It either has a 0% or 92% chance of hitting Earth in 2062.</p>
+            </div>
+          </div>
+          <div class="story-container">
+            <div class="story story--full" data-aos="zoom-in-up">
+              END OF STORY
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
   </body>
 
   <script>
+    AOS.init();
+
+    const VIEWPORT_PADDING = 20;
+    const CHART_HEIGHT = 250;
+    const CHART_PADDING = 32;
+    const DAYS_RANGE = 14;
+    const BRUSH_HEIGHT = 70;
+    const PEAK_LABEL_LINE_HEIGHT = 25;
+
+    const MAX_CHART_WIDTH = 860;
+    const LARGE_DESKTOP_VIEWPORT = 1000;
+
+    const MAIN_CHART_OPACITY_OFF = '0.15';
+    const MAIN_CHART_OPACITY_ON = '1';
+
+    const PEAK_LABEL_OPACITY_OFF = '0';
+    const PEAK_LABEL_OPACITY_ON = '1';
+
+    const DOT_OPACITY_OFF = '0';
+    const DOT_OPACITY_ON = '1';
+
+    function getViewportWidth() {
+      return window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+    }
+
+    function inLargeDesktopViewport() {
+      return getViewportWidth() >= LARGE_DESKTOP_VIEWPORT;
+    }
+
     function addDays(currentDate, dayNum) {
       return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + dayNum, currentDate.getHours(), currentDate.getMinutes());
-    }
-
-    function buildDates (startDate, endDate) {
-      let currentDate = new Date(startDate);
-      const dates = [];
-      while(currentDate < endDate) {
-        const obj = {
-          time: currentDate.toISOString(),
-          id: null,
-          interest: 0,
-        };
-        dates.push(obj);
-        currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-      }
-      return dates;
-    }
-
-    function isDateSameDay(date1, date2) {
-      return (
-        (date1.getDate() === date2.getDate()) &&
-        (date1.getMonth() === date2.getMonth()) &&
-        (date1.getFullYear() === date2.getFullYear())
-      );
     }
 
     function generateColor(index) {
@@ -140,6 +344,7 @@
       { time: '2019-02-17T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.7 },
       { time: '2019-02-18T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.2 },
       { time: '2019-02-19T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0.34 },
+      { time: '2019-02-20T00:00:00.108Z', id: '10', title: 'Jokowi', interest: 0 },
     ];
 
     const articles = {
@@ -155,16 +360,6 @@
       '10': 'Design',
     };
 
-    const MAIN_CHART_OPACITY_OFF = '0.15';
-    const MAIN_CHART_OPACITY_ON = '1';
-
-    const PEAK_LABEL_OPACITY_OFF = '0';
-    const PEAK_LABEL_OPACITY_ON = '1';
-
-    const DOT_OPACITY_OFF = '0';
-    const DOT_OPACITY_ON = '1';
-
-    const dateOffset = 0;
     const grouped = _.groupBy(overallData, 'id');
     let chunks = Object.keys(grouped).map(item => ({
       key: item,
@@ -175,25 +370,41 @@
     const minDate = d3.min(overallData, function(d) { return new Date(d.time) });
     const maxDate = d3.max(overallData, function(d) { return new Date(d.time) });
 
-    const svgHeight = 360;
-    const svgWidth = 600;
-    const padding = 32;
-    const days = 14;
-
-    const miniHeight = 60;
-    const peakLabelLineHeight = 25;
-
     this.timelineChart = {};
     this.timelineChart.initMainChart = function() {
       var self = this;
+      this.svgWidth = inLargeDesktopViewport() ? MAX_CHART_WIDTH : getViewportWidth() - VIEWPORT_PADDING;
+
       this.selectedMinDate = addDays(minDate, 10);
-      this.selectedMaxDate = addDays(this.selectedMinDate, days);
+      this.selectedMaxDate = addDays(this.selectedMinDate, DAYS_RANGE);
 
       this.drawMainChart();
       this.drawMainXAxis();
       this.drawMainYAxis();
       this.drawMainPeakLabel();
       this.drawDots();
+    }
+
+    this.timelineChart.resize = function(e) {
+      var self = this;
+      this.svgWidth = inLargeDesktopViewport() ? MAX_CHART_WIDTH : getViewportWidth() - VIEWPORT_PADDING;
+      this.mainChartSvg
+        .attr('width', this.svgWidth)
+        .attr('height', CHART_HEIGHT + CHART_PADDING);
+
+      this.mainX
+        .range([0, this.svgWidth - CHART_PADDING]);
+
+      this.mainY
+        .range([CHART_HEIGHT, 0]);
+      
+      this.timelineX
+        .range([0, this.svgWidth - CHART_PADDING - 1])
+      
+      this.mainChartArea
+        .x(function(d, i) { return self.mainX(new Date(d.time)); })
+        .y0(self.mainY(0))
+        .y1(function(d, i) { return self.mainY(d.interest) })
     }
 
     this.timelineChart.filterDataRelativeToPeakByRange = function(datas, shift) {
@@ -221,34 +432,34 @@
     this.timelineChart.drawMainChart = function() {
       var self = this;
       this.mainX = d3.scaleTime()
-        .range([0, svgWidth])
+        .range([0, this.svgWidth - CHART_PADDING])
         .domain([this.selectedMinDate, this.selectedMaxDate]);
       this.mainY = d3.scaleLinear()
         .domain([0, 1])
-        .range([svgHeight, 0]);
+        .range([CHART_HEIGHT, 0]);
 
       this.timelineX = d3.scaleTime()
-        .range([0, svgWidth + padding - 1])
+        .range([0, this.svgWidth - CHART_PADDING - 1])
         .domain([minDate, maxDate])
 
       this.timelineY = d3.scaleLinear()
         .domain([0, 1])
-        .range([`${miniHeight}`, 0]);
+        .range([`${BRUSH_HEIGHT}`, 0]);
 
       this.mainChartSvg = d3
         .select('.main-chart')
         .append('svg')
-        .attr('width', svgWidth + padding + 2)
-        .attr('height', svgHeight + (padding * 2));
+        .attr('width', this.svgWidth)
+        .attr('height', CHART_HEIGHT + CHART_PADDING);
     
       this.mainChartGroup = this.mainChartSvg
         .append('g')
-        .attr('transform', `translate(0, ${padding / 2})`)
+        .attr('transform', `translate(0, 8)`)
         .attr('class', '.main-chart-area');
 
       this.mainChartSelection = this.mainChartGroup
         .append('g')
-        .attr('transform', `translate(${padding + 2}, 0)`)
+        .attr('transform', `translate(${CHART_PADDING + 2}, 0)`)
         .selectAll('path')
         .data(chunks)
         .enter();
@@ -296,11 +507,11 @@
       this.peakLabelSelection
         .attr('transform', function(d) {
           const obj = d.items.slice().sort(function(a, b) { return a.interest - b.interest })[d.items.length - 1];
-          return `translate(${self.mainX(new Date(obj.time)) + padding + 2}, ${self.mainY(obj.interest) - (padding / 2)})`;
+          return `translate(${self.mainX(new Date(obj.time)) + CHART_PADDING + 1.5}, ${self.mainY(obj.interest) - (CHART_PADDING / 2)})`;
         })
         .append('rect')
         .attr('width', 1)
-        .attr('height', peakLabelLineHeight)
+        .attr('height', PEAK_LABEL_LINE_HEIGHT)
         .attr('fill', '#999')
         .attr('shape-rendering', 'crispEdges');
       
@@ -335,7 +546,7 @@
       currentPeakLabels
         .append('rect')
         .attr('width', 1)
-        .attr('height', peakLabelLineHeight)
+        .attr('height', PEAK_LABEL_LINE_HEIGHT)
         .attr('fill', '#999')
         .attr('shape-rendering', 'crispEdges');
       
@@ -357,7 +568,7 @@
         .merge(this.peakLabelSelection)
         .attr('transform', function(d) {
           const obj = d.items.slice().sort(function(a, b) { return a.interest - b.interest })[d.items.length - 1];
-          return `translate(${self.mainX(new Date(obj.time)) + padding + 2}, ${self.mainY(obj.interest) - (padding / 2)})`;
+          return `translate(${self.mainX(new Date(obj.time)) + CHART_PADDING + 1.5}, ${self.mainY(obj.interest) - (CHART_PADDING / 2)})`;
         });
 
       this.peakLabelSelection
@@ -378,10 +589,10 @@
       this.dotsSelection
         .attr('r', 5)
         .attr('cx', function (d) {
-            return self.mainX(new Date(d.time)) + padding + 2;
+            return self.mainX(new Date(d.time)) + CHART_PADDING + 2;
         })
         .attr('cy', function (d) {
-            return self.mainY(d.interest) + (padding / 2);
+            return self.mainY(d.interest) + 8;
         })
         .style('fill', function (d, i) {
           const id = d.id;
@@ -411,10 +622,10 @@
         .attr('r', 5)
         .merge(this.dotsSelection)
         .attr('cx', function (d) {
-            return self.mainX(new Date(d.time)) + padding + 2;
+            return self.mainX(new Date(d.time)) + CHART_PADDING + 2;
         })
         .attr('cy', function (d) {
-            return self.mainY(d.interest) + (padding / 2);
+            return self.mainY(d.interest) + 8;
         })
         .style('fill', function (d, i) {
           const id = d.id;
@@ -516,7 +727,7 @@
     this.timelineChart.drawMainXAxis = function() {
       this.xAxisScale = d3.scaleLinear()
         .domain([minDate, maxDate])
-        .range([0, svgWidth]);
+        .range([0, this.svgWidth]);
 
       this.xAxis = d3
         .axisBottom(this.xAxisScale)
@@ -527,14 +738,14 @@
 
       this.xAxisGroup = this.mainChartGroup
         .append('g')
-        .attr('transform', `translate(${padding}, ${svgHeight})`)
+        .attr('transform', `translate(${CHART_PADDING}, ${CHART_HEIGHT})`)
         .call(this.xAxis);
     }
 
     this.timelineChart.drawMainYAxis = function() {
       this.yAxisScale = d3.scaleLinear()
         .domain([1, 0])
-        .range([0, svgHeight])
+        .range([0, CHART_HEIGHT])
     
       this.yAxis = d3
         .axisLeft(this.yAxisScale)
@@ -543,7 +754,7 @@
 
       this.yAxisGroup = this.mainChartGroup
         .append('g')
-        .attr('transform', `translate(${padding}, 0)`)
+        .attr('transform', `translate(${CHART_PADDING}, 0)`)
         .call(this.yAxis);
     }
 
@@ -569,12 +780,11 @@
         .attr('width', selection[0]);
       this.timelineMaxSelectionMask
         .attr('x', selection[1])
-        .attr('width', (_this.timelineX.range()[1] - selection[1] > 0 ? _this.timelineX.range()[1] - selection[1] : 0) + padding);
+        .attr('width', (_this.timelineX.range()[1] - selection[1] > 0 ? _this.timelineX.range()[1] - selection[1] : 0)) + CHART_PADDING;
 
       this.timelineMinSelection.attr('x', selection[0]);
       this.timelineMaxSelection.attr('x', selection[1] - 1);
 
-      // console.log(selectedDate);
       if (d3.event.sourceEvent) {
         this.updateMainChart(selectedDate);
       }
@@ -583,7 +793,7 @@
     this.timelineChart.updateMainChart = function(startDate) {
       var self = this;
       this.selectedMinDate = startDate;
-      this.selectedMaxDate = addDays(startDate, days);
+      this.selectedMaxDate = addDays(startDate, DAYS_RANGE);
 
       this.mainX.domain([this.selectedMinDate, this.selectedMaxDate]);
 
@@ -603,10 +813,10 @@
 
     this.timelineChart.drawTimelineBrush = function() {
       var self = this;
+      const brushWidth = this.svgWidth - CHART_PADDING;
 
-      // TODO: Support click on area to focus
       this.timelineBrush = d3.brushX()
-        .extent([[0, 0], [svgWidth + padding, miniHeight]])
+        .extent([[0, 0], [brushWidth, BRUSH_HEIGHT]])
         .on('brush end', function () {
           self.brushed(self); 
         });
@@ -630,7 +840,7 @@
         .attr('x', '0')
         .attr('y', '0')
         .attr('width', '1')
-        .attr('height', miniHeight)
+        .attr('height', BRUSH_HEIGHT)
         .attr('fill', '#3A3A3A')
         .attr('shape-rendering', 'crispEdges');
 
@@ -641,7 +851,7 @@
         .attr('x', `${this.timelineX.range()[1] - 1}`)
         .attr('y', '0')
         .attr('width', '1')
-        .attr('height', miniHeight)
+        .attr('height', BRUSH_HEIGHT)
         .attr('fill', '#3A3A3A')
         .attr('shape-rendering', 'crispEdges');
 
@@ -651,7 +861,7 @@
         .attr('x', '0')
         .attr('y', '0')
         .attr('width', '0')
-        .attr('height', miniHeight)
+        .attr('height', BRUSH_HEIGHT)
         .attr('fill', '#FFFFFF')
         .attr('fill-opacity', '0.75')
         .attr('shape-rendering', 'crispEdges');
@@ -659,10 +869,10 @@
       // Overlay for timeline's right side mask
       this.timelineMaxSelectionMask = this.timelineBrushGroup
         .append('rect')
-        .attr('x', `${svgWidth + padding}`)
+        .attr('x', `${brushWidth}`)
         .attr('y', '0')
         .attr('width', '0')
-        .attr('height', miniHeight)
+        .attr('height', BRUSH_HEIGHT)
         .attr('fill', '#FFFFFF')
         .attr('fill-opacity', '0.75')
         .attr('shape-rendering', 'crispEdges');
@@ -672,19 +882,21 @@
 
     this.timelineChart.drawTimelineChart = function() {
       var self = this;
+      const brushWidth = this.svgWidth - CHART_PADDING;
 
       this.timelineSvg = d3
         .select('.timeline-chart')
         .append('svg')
-        .attr('width', svgWidth + padding)
-        .attr('height', miniHeight);
+        .attr('transform', `translate(${CHART_PADDING / 2}, 0)`)
+        .attr('width', brushWidth)
+        .attr('height', BRUSH_HEIGHT);
 
       const bottomLine = this.timelineSvg
         .append('line')
         .attr('x1', '0')
-        .attr('y1', `${miniHeight - 1}`)
-        .attr('x2', `${svgWidth + padding}`)
-        .attr('y2', `${miniHeight - 1}`)
+        .attr('y1', `${BRUSH_HEIGHT - 1}`)
+        .attr('x2', `${brushWidth}`)
+        .attr('y2', `${BRUSH_HEIGHT - 1}`)
         .attr('stroke', '#E7E7E7')
         .attr('stroke-width', '1')
         .attr('shape-rendering', 'crispEdges');
@@ -694,17 +906,17 @@
         .attr('x1', '1')
         .attr('y1', '0')
         .attr('x2', '1')
-        .attr('y2', `${miniHeight}`)
+        .attr('y2', `${BRUSH_HEIGHT}`)
         .attr('stroke', '#E7E7E7')
         .attr('stroke-width', '1')
         .attr('shape-rendering', 'crispEdges');
 
       const rightLine = this.timelineSvg
         .append('line')
-        .attr('x1', `${svgWidth + padding - 1}`)
+        .attr('x1', `${brushWidth - 1}`)
         .attr('y1', '0')
-        .attr('x2', `${svgWidth + padding - 1}`)
-        .attr('y2', `${miniHeight}`)
+        .attr('x2', `${brushWidth - 1}`)
+        .attr('y2', `${BRUSH_HEIGHT}`)
         .attr('stroke', '#E7E7E7')
         .attr('stroke-width', '1')
         .attr('shape-rendering', 'crispEdges');
@@ -735,5 +947,9 @@
     }
     this.timelineChart.initMainChart();
     this.timelineChart.initTimeline();
+    const timelineChart = this.timelineChart;
+    window.addEventListener('resize', function(e) {
+      timelineChart.resize(e);
+    });
   </script>
 </html>

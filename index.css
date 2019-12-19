@@ -115,7 +115,7 @@ svg .dots {
 }
 
 .story--half {
-  width: calc(50% - 24px);
+  width: calc(50% - 12px);
 }
 
 /* .story--left {
@@ -167,6 +167,10 @@ svg .dots {
 @media screen and (min-width: 1200px) {
   .story-area {
     padding: 0;
+  }
+
+  .story--half {
+    width: calc(50% - 24px);
   }
 
   .main-container {
